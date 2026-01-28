@@ -2,6 +2,7 @@
 #include <cmath>
 #include "roots.hpp"
 
+
 TEST(Bisection, FindsPositiveRoot)
 {
     auto f = [](double x)

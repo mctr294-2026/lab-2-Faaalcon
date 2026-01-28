@@ -80,8 +80,8 @@ return false;
 bool secant(std::function<double(double)> f,
             double a, double b, double c,
             double *root) {
-    // Secant requires two points to start. 
-    // We use the guess 'c' and a slightly perturbed point to approximate the tangent.
+    //two points to start. 
+    // We use the guess 'c' and a to approximate.
     double x0 = c;
     double x1 = c + 0.001; 
     
