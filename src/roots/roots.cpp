@@ -15,19 +15,19 @@ bool bisection(std::function<double(double)> f, double a, double b, double *root
 if (fa * fb >= 0) {return false;}
 
 for(int i = 0; i < MAX_ITER; i++){
-    double mid = (fa+fb)/2;
+    double mid = (a + b)/2;
     double fmid = f(mid);
 
  // Check for convergence
-    if (std::abs(fmid) < TOLERANCE || (b - a) / 2.0 < TOLERANCE) {
+    if (std::abs(fmid) < TOLERANCE || std::abs((b - a) / 2.0) < TOLERANCE) {
         //found the root
         *root = mid;
         return true;
     } else {
         if(fa * fmid < 0){
-        b = mid; fa = fmid;
+        b = mid; fb= fmid;
         } else {
-        a = mid; fb = fmid;}
+        a = mid; fa = fmid;}
     }
 }
 return false;
@@ -40,7 +40,7 @@ bool regula_falsi(std::function<double(double)> f, double a, double b, double *r
 if (fa * fb >= 0) {return false;}
 
 for(int i = 0; i < MAX_ITER; i++){
-    double mid =  (fa*(a - b)) / (fb - fa);
+    double mid =  a - (fa*(b - a)) / (fb - fa);
     double fmid = f(mid);
     //if we found the root
     if(std::abs(fmid) < TOLERANCE ){*root = mid; return true;}
@@ -65,7 +65,7 @@ for (int i = 0; i < MAX_ITER; ++i) { //run the loop like normal
         if (x < a || x > b) {return false;}//is the guess to far out
         double fx = f(x);
         double gx = g(x); // Derivatives
-        if (std::abs(c) < TOLERANCE){*root = c; return true;}
+        if (std::abs(fx) < TOLERANCE){*root = x; return true;}
         if (std::abs(gx) < 1e-12){return false;}
         //formula: x_new = x - f(x)/f'(x)
         double x_new = x - (fx / gx);
